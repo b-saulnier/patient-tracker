@@ -45,39 +45,6 @@ interface Links {
     icon: React.ReactElement
 }
 
-const sampleEvents = [
-    {
-        id: 1,
-        patient_id: 1,
-        start_time: '2021-10-01T10:00:00',
-        end_time: '2021-10-01T11:00:00',
-        type: 'Appointment',
-        doctor_id: 1,
-        first_name: 'Sarah',
-        last_name: 'Surgeon',
-    } as Event,
-    {
-        id: 2,
-        patient_id: 2,
-        start_time: '2021-10-02T10:00:00',
-        end_time: '2021-10-02T11:00:00',
-        type: 'Random',
-        doctor_id: 2,
-        first_name: 'Daniel',
-        last_name: 'Doctor',
-    } as Event,
-    {
-        id: 3,
-        patient_id: 3,
-        start_time: '2021-10-03T10:00:00',
-        end_time: '2021-10-03T13:00:00',
-        type: 'Misc.',
-        doctor_id: 3,
-        first_name: 'Phyllis',
-        last_name: 'Physician',
-    } as Event,
-];
-
 export function DashboardPage(props: Props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -97,7 +64,12 @@ export function DashboardPage(props: Props) {
                 setIsDoctor(!!user?.email?.endsWith('health.gov') ?? false);
                 // console.log(user);
                 var patient_id = await serivce.getPatientID(user?.email!);
+                console.log(patient_id);
+
                 setUserPrescriptions(await serivce.getPrescription(patient_id));
+
+                const upcomingEvents = await serivce.getUpcomingEvents(patient_id);
+                setEvents(upcomingEvents);
             } catch (error) {
                 console.log('error :( ' + error);
             }
@@ -108,23 +80,6 @@ export function DashboardPage(props: Props) {
         fetchData();
         setIsRendered(true);
     }, []);
-
-    React.useEffect(() => {
-        setEvents(sampleEvents);
-        console.log("set events");
-    }, []);
-    
-    // return !isRendered ? 
-    //         <div>Rendering!</div> :
-    //         isDoctor ? 
-    //             <div>I am a doctor!</div> :
-    //             <>
-    //                 <Box sx={{ margin:'20px', display:'flex', width:'100%'}}>
-    //                     <PrescriptionBox prescriptions={ userPrescriptions }/>
-    //                 </Box>;
-
-    //                 <EventsSchedule events={events}/>
-    //             </>
 
     return <>
         <div className="p-8 h-screen w-full">

@@ -21,7 +21,10 @@ export function EventsSchedule(props: { events: Event[] }) {
                 </div>
 
                 <>
-                    {props.events.map((event) => {
+                    {props.events.length === 0 ? <div className='text-gray-500 text-center'>
+                        No upcoming appointments
+                    </div> : 
+                    props.events.map((event) => {
                         return <>
                             <Timeline
                                 sx={{

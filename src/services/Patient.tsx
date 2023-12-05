@@ -42,6 +42,25 @@ export class DatabaseService {
         return data;
     }
 
+    async getUpcomingEvents(id: string): Promise<any> {
+        const { data, error } = await supabase.from('event_doctor_view')
+            .select('*')
+            .filter('patient_id', 'eq', id)
+            // .filter('start_date', 'gte', new Date())
+            // .order('start_date', { ascending: true })
+            // .limit(10);
+
+        // filter on Date
+        const today = new Date();
+        const filteredData = (data == null)? null : data.filter((e: any) => {
+            console.log(e);
+            return new Date(e.end_time) >= today;
+        });
+
+        console.log("getUpcomingEvents", filteredData);
+        return filteredData;
+    }
+
     async getVisit(id: string): Promise<any> {
         const { data, error } = await supabase.from('events').select('*, diagnoses ( *, illness:illness_id ( * ), prescriptions (*,medication:medication_id(*)) ) ').filter('id', 'eq', id).limit(1).single();
         return data;

@@ -22,16 +22,19 @@ export interface Prescription {
 
 export function PrescriptionBox(prescriptionList: PrescriptionBoxProps) {
   return (
-    <Box sx={{ backgroundColor: 'white', borderRadius: '10px', padding: '20px', border: '1px solid lightgrey'}}>
-      <Box display='flex' alignItems='center'>
-        <Stack direction="row" spacing={20}>
-          <Typography variant='h4' align='left'>
-            Prescriptions
-          </Typography>
-          <MedicationIcon />
-        </Stack>
-      </Box>
-      <Divider style={{ backgroundColor: 'grey' }} />
+    <>
+    <div className='  border border-gray-200 rounded-lg p-4 bg-white mt-8 '>
+ 
+        <>
+        <Box display='flex' alignItems={'center'} className='justify-between'>
+          
+          <h1 className='text-xl font-semibold'>Prescriptions</h1>
+          <MedicationIcon/>
+        </Box>
+        
+        <div className='border-b border-gray-300 w-full mt-4' />
+        </>
+        
       <Typography variant="body1" align="left">
         <List>
           {prescriptionList.prescriptions.map((prescription: Prescription) => (
@@ -44,6 +47,7 @@ export function PrescriptionBox(prescriptionList: PrescriptionBoxProps) {
           ))}
         </List>
       </Typography>
-    </Box>
+    </div>
+    </>
   );
 };

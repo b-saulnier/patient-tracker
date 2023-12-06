@@ -93,7 +93,7 @@ export function DashboardPage(props: Props) {
                 </Box>
                 : 
                 <>
-                    <Box sx={{ margin:'20px', display:'flex', width:'100%'}}>
+                    <Box sx={{ display:'flex'}}>
                         <PrescriptionBox prescriptions={ userPrescriptions }/>
                     </Box>
 

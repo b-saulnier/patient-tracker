@@ -49,7 +49,7 @@ export function SchedulePage(props: any) {
             <h1 className='text-2xl font-semibold'>Schedule</h1>
             <div className='border-b border-gray-300 w-full mb-8 mt-4' />
         </div>
-        <div className='shadow border border-gray-300 rounded-lg p-1 bg-white'>
+        <div className='border border-gray-300 rounded-lg p-1 bg-white'>
 
             {
                 <Scheduler
